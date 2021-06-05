@@ -2,7 +2,7 @@
  * @Author: mikey.zhaopeng
  * @Date: 2021-06-05 18:48:23
  * @Last Modified by: mikey.zhaopeng
- * @Last Modified time: 2021-06-05 20:41:59
+ * @Last Modified time: 2021-06-05 20:54:17
  */
 
 // 1. 转换驼峰命名  class-name-stupid => ClassNameStupid
@@ -48,4 +48,5 @@ function advanced_trim() {
   console.log(str.slice(0, i + 1));
 }
 
+//
 advanced_trim();
