@@ -1,0 +1,34 @@
+/*
+ * @Author: mikey.zhaopeng 
+ * @Date: 2021-06-05 21:14:19 
+ * @Last Modified by: mikey.zhaopeng
+ * @Last Modified time: 2021-06-05 21:23:47
+ */
+
+
+tricky! overloading function in javascript!
+
+* arguments Object
+    slice / dice arguments Object
+    careful arguments is not a real Array, so slice() / splice() ...  will not work
+
+it is very simple for overloading function in javascript, if you can realize the length of arguments:
+    /*
+        switch （arguments.length） {
+            case 0:
+                ...
+                break
+            case 1:
+                ...
+                break
+            default:
+                ...
+        }
+    
+    */
+but it is simple， starghtforward but redundancy, check out this:
+    /*
+        function addMethod(){
+            
+        }
+    */
