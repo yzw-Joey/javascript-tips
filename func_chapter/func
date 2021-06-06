@@ -1,8 +1,8 @@
 /*
  * @Author: mikey.zhaopeng 
  * @Date: 2021-06-05 21:14:19 
- * @Last Modified by: mikey.zhaopeng
- * @Last Modified time: 2021-06-05 21:23:47
+ * @Last Modified by: joey yang
+ * @Last Modified time: 2021-06-06 16:03:10
  */
 
 
@@ -26,9 +26,99 @@ it is very simple for overloading function in javascript, if you can realize the
         }
     
     */
+
 but it is simple， starghtforward but redundancy, check out this:
     /*
-        function addMethod(){
+        function addMethod(obj, name, fn){
+            var old = obj[name]
             
+            obj[name] = function(){
+                if (fn.length === arguments.length){
+                    return fn.apply(this, arguments)
+                }else if (typeof old === 'function'){
+                    return old.apply(this, arguments)
+                } 
+            }
         }
+    
+        var ninja = {
+            name: "ninja1"
+        }
+        addMethod(ninja, func1, fn1)
+        addMethod(ninja, func2, fn2)
+        addMethod(ninja, func3, fn3)
+        // 一层套一层啊，一层指一层，
+        第三层中的old => 指向的就是第二层中的obj[name], 所以会一个一个去套，参数长度是不是对的
+    */
+
+
+
+To determine a veriable is kinda tricky and hard in javascript;
+check out these:
+    - Function(a):
+        * typeof a : 'function'
+        * Object.prototype.toString.call(a) : '[object Function]'
+        * a instanceof Function
+
+    - 
+    - 
+    - 
+    - 
+    - 
+    
+
+closure!
+for starting, let's talk about "bind": arrow func has no "arguments"
+
+    /*
+        // function myBind
+        Function.prototype.myBind = function(context){   
+            return ()=>{
+                return this.apply(context, arguments)
+            }
+        }
+
+        fn = fn.myBind(obj)
+    */
+
+continue construst myBind to make it more calable
+    /*
+        // *******************
+        // just to currying it
+        Function.prototype.myBind = function(){   
+            var args = [...arguments],
+                context = args.shift()
+            return ()=>{
+                return this.apply(context, args.concat([...arguments]))
+            }
+        }
+
+        fn = fn.myBind(obj)
+    */
+
+now, curry and partial:
+    /*
+        //a conplex partial func
+        Function.prototype.partial = function(){
+            var fn = this,
+                args = [...arguments]
+            
+            return function(){
+                var num = 0
+                for(let i=0; i<args.length; i++){
+                    if(args[i] === undefined){
+                        args[i] = arguments[num++]
+                    }
+                }
+                fn.apply(this, args.concat([...arguments].slice(num)))
+            }
+        }
+    */
+
+Instant function
+    /*
+        (function(alia){
+    ...
+    ...
+})(a long long name)
     */
